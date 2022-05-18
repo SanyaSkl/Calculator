@@ -1,9 +1,7 @@
 import Wrapper from "./Components/Wrapper";
 import Screen from "./Components/Screen";
 import ButtonBox from "./Components/ButtonBox";
-import Button from "./Components/Button";
 import React, {useState} from "react";
-import {tokTypes as calc} from "acorn";
 
 
 const btnValues = [
@@ -75,22 +73,16 @@ const removeSpaces = (num) => num.toString().replace(/\s/g, "");
             }
         };
 
-                const invertClickHandler = () => {
-                    setCalc({
-                            ...calc,
-                        num: parseFloat(calc.num),
-                        res: parseFloat(calc.res),
-                            sign: "",
-                    });
-                };
-
+        const invertClickHandler = () => {
             setCalc({
                 ...calc,
-                num: (this.num /= Math.pow(100, 1)),
-                res: (this.res /= Math.pow(100, 1)),
+                num: parseFloat(calc.num),
+                res: parseFloat(calc.res),
                 sign: "",
             });
         };
+
+
 
         const resetClickHandler = () => {
             setCalc({
@@ -101,17 +93,48 @@ const removeSpaces = (num) => num.toString().replace(/\s/g, "");
             });
         };
 
+        const percentClickHandler = () => {
+            setCalc({
+                ...calc,
+                num: parseFloat(removeSpaces(calc.num)),
+                res: parseFloat(removeSpaces(calc.res)),
+                sign: "",
+             });
+        };
+
+        const signClickHandler = (e) => {
+            e.preventDefault();
+            const value = e.target.innerHTML;
+
+            setCalc({
+                ...calc,
+                sign: value,
+                res: !calc.res && calc.num ? calc.num : calc.res,
+                num: "",
+            });
+        };
+
 
         return (
             <Wrapper>
                 <Screen value={calc.num ? calc.num : calc.res} />
                     <ButtonBox> {btnValues.flat().map((btn, i) => {
                         return (
-                            <Button key={i} className={btn === "=" ? "equals" : ""} value={btn}
-                                    onclick={ btn === "C" ? resetClickHandler : btn === "+-" ? invertClickHandler
-                                        : btn === "%" ? percentClickHandler : btn === "=" ? equalsClickHandler
-                                            : btn === "/" || btn === "X" || btn === "-" || btn === "+"
-                                                ? signClickHandler : btn === "." ? commaClickHandler : numClickHandler
+                            <button key={i} className={btn === "=" ? "equals" : ""} value={btn}
+                                    onClick={
+                                        btn === "C"
+                                            ? resetClickHandler
+                                            : btn === "+-"
+                                            ? invertClickHandler
+                                            : btn === "%"
+                                                ? percentClickHandler
+                                                : btn === "="
+                                                    ? equalsClickHandler
+                                                    : btn === "/" || btn === "X" || btn === "-" || btn === "+"
+                                                        ? signClickHandler
+                                                        : btn === "."
+                                                            ? commaClickHandler
+                                                            : numClickHandler
                                     }
                                 />
                             );
@@ -119,8 +142,8 @@ const removeSpaces = (num) => num.toString().replace(/\s/g, "");
                     }
                     </ButtonBox>
             </Wrapper>
-        );
-    };
+        )
+    }
 
 
 export default App;

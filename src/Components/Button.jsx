@@ -1,4 +1,4 @@
-import "./Button.css"
+import "./Button.module.css"
 import React from "react";
 
 const Button = ({className, value, onclick}) => {

@@ -1,4 +1,4 @@
-import "./ButtonBox.css"
+import "./ButtonBox.module.css"
 import React from "react";
 
 const ButtonBox = ({ children }) => {

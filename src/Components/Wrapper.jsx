@@ -1,4 +1,4 @@
-import "./Wrapper.css"
+import "./Wrapper.module.css"
 import React from "react";
 
 const Wrapper = ({children}) => {
