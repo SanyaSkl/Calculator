@@ -116,12 +116,12 @@ const removeSpaces = (num) => num.toString().replace(/\s/g, "");
 
 
         return (
-            <Wrapper>
-                <Screen value={calc.num ? calc.num : calc.res} />
-                    <ButtonBox> {btnValues.flat().map((btn, i) => {
+            <div><Wrapper>
+                <div><Screen value={calc.num ? calc.num : calc.res} /></div>
+                <div><ButtonBox> {btnValues.flat().map((btn, i) => {
                         return (
-                            <button key={i} className={btn === "=" ? "equals" : ""} value={btn}
-                                    onClick={
+                            <div><button key={i} className={btn === "=" ? "equals" : ""} value={btn}
+                            onClick={
                                         btn === "C"
                                             ? resetClickHandler
                                             : btn === "+-"
@@ -135,13 +135,13 @@ const removeSpaces = (num) => num.toString().replace(/\s/g, "");
                                                         : btn === "."
                                                             ? commaClickHandler
                                                             : numClickHandler
-                                    }
-                                />
+                            }
+                            /></div>
                             );
                         })
                     }
-                    </ButtonBox>
-            </Wrapper>
+                </ButtonBox></div>
+            </Wrapper></div>
         )
     }
 
